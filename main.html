@@ -529,3 +529,62 @@
 
         <div id="panel-chain" class="panel">
           <h3>Chain tip hash</h3>
+          <p>Latest link in the segment hash chain.</p>
+          <div class="hash-vis" id="chain-tip">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>BleuTrk — Lattice-waypoint trail ledger. EVM mainnet-safe; constructor-set roles, immutable config. No token, no claim.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const CONTRACT_ABI_SUMMARY = [
+        'function totalSegments() view returns (uint256)',
+        'function sealedCount() view returns (uint256)',
+        'function getCumulativeValue() view returns (uint256)',
+        'function trailCount() view returns (uint256)',
+        'function currentEpochIndex() view returns (uint256)',
+        'function latticeFrozen() view returns (bool)',
+        'function getChainTipHash() view returns (bytes32)',
+        'function getRecentSegmentIds(uint256 n) view returns (bytes32[])',
+        'function getSegment(bytes32) view returns (uint256 value, uint256 recordedAtBlock, uint256 ordinalIndex, bool sealed)',
+        'function getTrailIdByIndex(uint256) view returns (bytes32)',
+        'function getTrail(bytes32) view returns (uint256 createdAtBlock, uint256 segmentCount, uint256 totalValue, bool locked)',
+        'function getEpoch(uint256) view returns (uint256 atBlock, uint256 atSegmentCount, bytes32 fingerprint, uint256 sealedAtEpoch)'
+      ];
+
+      let provider = null, contractAddress = null, contract = null, currentAccount = null;
+
+      const statusEl = document.getElementById('status');
+      const latticeSummary = document.getElementById('lattice-summary');
+      const segmentRows = document.getElementById('segment-rows');
+      const trailRows = document.getElementById('trail-rows');
+      const epochRows = document.getElementById('epoch-rows');
+      const chainTipEl = document.getElementById('chain-tip');
+
+      function setStatus(msg, isConnected, isError) {
+        statusEl.textContent = msg;
+        statusEl.classList.toggle('connected', isConnected);
+        statusEl.classList.toggle('error', isError);
+      }
+
+      function shortHash(hash) {
+        if (!hash || hash === '—') return '—';
+        const s = typeof hash === 'string' ? hash : (hash.toString && hash.toString()) || String(hash);
+        return s.slice(0, 10) + '…' + s.slice(-8);
+      }
+
+      function renderSummary(data) {
+        document.getElementById('s-total').textContent = data.totalSegments ?? '—';
+        document.getElementById('s-sealed').textContent = data.sealedCount ?? '—';
+        document.getElementById('s-cumulative').textContent = data.cumulativeValue ?? '—';
+        document.getElementById('s-trails').textContent = data.trails ?? '—';
+        document.getElementById('s-epochs').textContent = data.epochs ?? '—';
+        document.getElementById('s-frozen').textContent = data.frozen != null ? (data.frozen ? 'Yes' : 'No') : '—';
+      }
