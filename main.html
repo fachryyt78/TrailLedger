@@ -116,3 +116,62 @@
       font-size: 0.9rem;
       transition: color 0.2s;
     }
+
+    nav a:hover {
+      color: var(--bleu);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* ----- Sections ----- */
+    section {
+      padding: 3rem 0;
+    }
+
+    section h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    section p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .concept-card:hover {
+      border-color: var(--bleu-dim);
+    }
+
+    .concept-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .concept-card p {
+      font-size: 0.875rem;
+      margin: 0;
+      color: var(--muted);
+    }
