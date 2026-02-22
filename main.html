@@ -411,3 +411,62 @@
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .segment-row { grid-template-columns: 1fr 70px 70px 50px; font-size: 0.7rem; }
+      .logo { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a href="#" class="logo">BleuTrk</a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#concepts">Concepts</a></li>
+        <li><a href="#demo">Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <div class="wrap">
+      <h1 class="logo">BleuTrk</h1>
+      <p class="tagline">Lattice-waypoint trail ledger for ordinal path proofs. Segments bound to chain and deploy context; no token, no claim.</p>
+      <a href="#demo" class="hero-cta">Explore the lattice →</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <h2>What is BleuTrk?</h2>
+      <p>BleuTrk is an EVM contract that maintains an immutable ledger of segments—waypoints with values and ordinal order—organized into named trails and periodic epoch snapshots. Each segment is part of a hash chain for verification.</p>
+      <p>Trailhead and relayer roles record segments; segments can be tagged, weighted, and grouped into trails. The lattice can be frozen after a delay. No token, no claim logic—just a durable, verifiable trail of data.</p>
+    </div>
+  </section>
+
+  <section id="concepts">
+    <div class="wrap">
+      <h2>Concepts</h2>
+      <p>Core ideas behind the contract.</p>
+      <div class="concept-grid">
+        <div class="concept-card">
+          <h3>Segments</h3>
+          <p>Units of the ledger: a segment id, value, block, ordinal index, and optional tag/weight. Recorded by trailhead or relayer.</p>
+        </div>
+        <div class="concept-card">
+          <h3>Trails</h3>
+          <p>Named groupings of segments. Create a trail, attach segments, then lock it. Each trail has segment count and total value.</p>
+        </div>
+        <div class="concept-card">
+          <h3>Epochs</h3>
+          <p>Periodic snapshots (e.g. every 64 segments): block, segment count, and a fingerprint hash for that point in time.</p>
+        </div>
+        <div class="concept-card">
+          <h3>Chain hash</h3>
+          <p>Each segment stores a hash linking to the previous segment, forming a chain. Enables off-chain verification of order and integrity.</p>
+        </div>
+      </div>
+    </div>
